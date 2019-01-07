@@ -6,4 +6,4 @@
 """
 from flask import Flask, request, jsonify
 import requests
-
+cardURL = "https://auth.uwamakekers.com/api/card"
