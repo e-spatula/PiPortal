@@ -4,7 +4,7 @@ As there are several points where an error can occur when requesting and receivi
 
 Integer error codes have been chosen for this project as it involves the interaction of several different systems and languages, across which integers are infinitely portable. Boolean alternatively could have been used, however it doesn't provide the same level of nuance.
 
-Using integers 
+Using integers for error codes is also practical for interaction with Arduinos as it enables the use of switching statements which can take the returned integer value of a function and flash an LED of the colour which pertains to the error code returned.
 
 It is hoped that this document will evolve into something of a handbook for diagnosing errors with this system.
 
