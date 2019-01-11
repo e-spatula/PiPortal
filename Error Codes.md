@@ -20,3 +20,6 @@ It is hoped that this document will evolve into something of a handbook for diag
 ` -1 `
 
 >The UID supplied is not the correct length or format to be processed. For example it may be 9 characters long.  
+
+` -2 `
+> The permission specified has no users associated with it. Either this means the permission doesn't exist or it simply hasn't been given to any users yet.
