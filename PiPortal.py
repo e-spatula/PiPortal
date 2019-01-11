@@ -9,7 +9,7 @@ import requests
 import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
-cardURL = "https://auth.uwamakekers.com/api/card"
+cardURL = "https://auth.uwamakers.com/api/card"
 token = config["setup"]["token"]
 
 """
@@ -67,8 +67,5 @@ def post():
     status = checkPermission(username, "joining.joined")
     print(status)
     return(jsonify(status))
-
-
-
 
 app.run(host="0.0.0.0", port = 8090)
