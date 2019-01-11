@@ -56,15 +56,17 @@ def checkPermission(username, perm):
     else:
         return(0)     
 
-@app.route("/card/", methods = ["POST"])
-def cardValidation():
+app = Flask(__name__)
+@app.route("/post", methods = ["POST"])
+def post():
     uid = request.data
     byteArray = uidSplitter(uid)
-    requestJSON = {"token" : token, "uuid": byteArray}
-    detailsRequest = requests.post(url = cardURL, params = requestJSON)
+    PARAMS = {"token" : token, "uuid": byteArray}
+    detailsRequest = requests.post(url = cardURL, params = PARAMS)
     response = detailsRequest.json()
-    username = response["user"]["username"]
+    username = response['user']['username']
     status = checkPermission(username, "joining.joined")
+    print(status)
     return(status)
 
 app.run(host="0.0.0.0", port = 8090)
