@@ -33,3 +33,24 @@ def uidSplitter(uid):
         byte = int(uid[i-1 : i+1], 16)
         byteArray.append(byte)
     return(byteArray)
+"""
+Method that takes a UWA student or staff number and a permision as an argument,
+sends a GET request to the auth endpoint requesting all student numbers that have
+that permission and testing the username provided for membership of that list. 
+Returns 1 if the username provided is present in list of users with the permission, 
+0 otherwise. If the user list is empty (i.e. the permission doesn't exist or is unused),
+returns -2.
+"""
+
+def checkPermission(username, perm):
+    permURL = "https://auth.uwamakers.com/api/users/?perm="
+    permURL += perm + "&token=" + token + "&csv=true"
+    permRequest = requests.get(permURL)
+    userList = permRequest.text
+    print(userList)
+    if not userList:
+        return(-2)
+    elif username in userList:
+        return(1)
+    else:
+        return(0)     
