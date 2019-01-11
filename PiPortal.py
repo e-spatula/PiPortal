@@ -56,7 +56,7 @@ def checkPermission(username, perm):
     else:
         return(0)     
 
-@app.route("/card/joining-joined", methods = ["POST"])
+@app.route("/card/", methods = ["POST"])
 def cardValidation():
     uid = request.data
     byteArray = uidSplitter(uid)
