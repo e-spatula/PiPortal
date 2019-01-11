@@ -25,6 +25,9 @@ which becomes:
 def uidSplitter(uid):
     uid = str(uid)
     uid = uid.replace("b'", "").replace("'", "")
+    if(len(uid) != 8):
+        print("UID length is wrong")
+        return(-1)
     byteArray = []
     for i in range(1,8,2):
         byte = int(uid[i-1 : i+1], 16)
