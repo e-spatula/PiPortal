@@ -11,6 +11,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 cardURL = "https://auth.uwamakekers.com/api/card"
 token = config["setup"]["token"]
+app = Flask(__name__)
 
 """
 Method that takes the uid string provided by the ESP, strips it of the 
@@ -54,3 +55,16 @@ def checkPermission(username, perm):
         return(1)
     else:
         return(0)     
+
+@app.route("/card/joining-joined", methods = ["POST"])
+def cardValidation():
+    uid = request.data
+    byteArray = uidSplitter(uid)
+    requestJSON = {"token" : token, "uuid": byteArray}
+    detailsRequest = requests.post(url = cardURL, params = requestJSON)
+    response = detailsRequest.json()
+    username = response["user"]["username"]
+    status = checkPermission(username, "joining.joined")
+    return(status)
+
+app.run(host="0.0.0.0", port = 8090)
