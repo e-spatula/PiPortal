@@ -47,7 +47,6 @@ def checkPermission(username, perm):
     permURL += perm + "&token=" + token + "&csv=true"
     permRequest = requests.get(permURL)
     userList = permRequest.text
-    print(userList)
     if not userList:
         return(-2)
     elif username in userList:
