@@ -55,7 +55,7 @@ def checkPermission(username, perm):
         return(0)     
 
 app = Flask(__name__)
-@app.route("/post", methods = ["POST"])
+@app.route("/card", methods = ["POST"])
 def post():
     uid = request.data
     byteArray = uidSplitter(uid)
