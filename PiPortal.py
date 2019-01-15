@@ -22,8 +22,7 @@ For example the uid string b'04050607' becomes:
 which becomes:
 [4,5,6,7]
 """
-def uidSplitter(uid):
-    uid = str(uid)
+def uidSplitter(uid):  
     if(len(uid) != 8):
         print("UID length is wrong")
         return(-1)
