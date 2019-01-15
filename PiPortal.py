@@ -24,7 +24,6 @@ which becomes:
 """
 def uidSplitter(uid):
     uid = str(uid)
-    uid = uid.replace("b'", "").replace("'", "")
     if(len(uid) != 8):
         print("UID length is wrong")
         return(-1)
@@ -57,14 +56,17 @@ def checkPermission(username, perm):
 app = Flask(__name__)
 @app.route("/card", methods = ["POST"])
 def post():
-    uid = request.data
+    postRequest = request.get_json()
+    uid = postRequest["uuid"]
+    permission = postRequest["permission"]
     byteArray = uidSplitter(uid)
     PARAMS = {"token" : token, "uuid": byteArray}
     detailsRequest = requests.post(url = cardURL, params = PARAMS)
     response = detailsRequest.json()
     username = response['user']['username']
-    status = checkPermission(username, "joining.joined")
+    status = checkPermission(username, permission)
     print(status)
     return(jsonify(status))
+
 
 app.run(host="0.0.0.0", port = 8090)
