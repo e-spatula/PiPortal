@@ -13,14 +13,8 @@ cardURL = "https://auth.uwamakers.com/api/card"
 token = config["setup"]["token"]
 
 """
-Method that takes the uid string provided by the ESP, strips it of the 
-extra formatting added by the ESP and converts the hexadecimal string to an array 
-of 4 digits. 
-
-For example the uid string b'04050607' becomes:
-0405060708
-which becomes:
-[4,5,6,7]
+Method that takes the uid string provided by the ESP converts the hexadecimal string to an array 
+of 4 digits.
 """
 def uidSplitter(uid):  
     if(len(uid) != 8):
