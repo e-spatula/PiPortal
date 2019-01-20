@@ -68,4 +68,4 @@ def post():
     print(status)
     return(jsonify(status))
 
-app.run(host="0.0.0.0", port = 8090)
+app.run(host="0.0.0.0", port = 8090, ssl_context="adhoc")
