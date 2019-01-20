@@ -1,4 +1,3 @@
-
 """
 @author: Eddie Atkinson
 @version: 0.1
@@ -14,18 +13,10 @@ cardURL = "https://auth.uwamakers.com/api/card"
 token = config["setup"]["token"]
 
 """
-Method that takes the uid string provided by the ESP, strips it of the 
-extra formatting added by the ESP and converts the hexadecimal string to an array 
-of 4 digits. 
-
-For example the uid string b'04050607' becomes:
-0405060708
-which becomes:
-[4,5,6,7]
+Method that takes the uid string provided by the ESP converts the hexadecimal string to an array 
+of 4 digits.
 """
-def uidSplitter(uid):
-    uid = str(uid)
-    uid = uid.replace("b'", "").replace("'", "")
+def uidSplitter(uid):  
     if(len(uid) != 8):
         print("UID length is wrong")
         return(-1)
@@ -58,14 +49,18 @@ def checkPermission(username, perm):
 app = Flask(__name__)
 @app.route("/card", methods = ["POST"])
 def post():
-    uid = request.data
+    postRequest = request.get_json()
+    uid = postRequest["uuid"]
+    permission = postRequest["permission"]
     byteArray = uidSplitter(uid)
     PARAMS = {"token" : token, "uuid": byteArray}
     detailsRequest = requests.post(url = cardURL, params = PARAMS)
     response = detailsRequest.json()
     username = response['user']['username']
-    status = checkPermission(username, "joining.joined")
+    status = checkPermission(username, permission)
     print(status)
     return(jsonify(status))
 
+
 app.run(host="0.0.0.0", port = 8090, ssl_context="adhoc")
+
