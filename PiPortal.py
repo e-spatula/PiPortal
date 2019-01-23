@@ -11,7 +11,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 cardURL = "https://auth.uwamakers.com/api/card"
 token = config["setup"]["token"]
-
+context = ("host.cert", "host.key")
 """
 Method that takes the uid string provided by the ESP converts the hexadecimal string to an array 
 of 4 digits.
@@ -61,6 +61,5 @@ def post():
     print(status)
     return(jsonify(status))
 
-
-app.run(host="0.0.0.0", port = 8090, ssl_context="adhoc")
+app.run(host="0.0.0.0", port = 8090, ssl_context =  context)
 
