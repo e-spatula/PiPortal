@@ -49,7 +49,7 @@ def checkPermission(username, perm):
 app = Flask(__name__)
 @app.route("/card", methods = ["POST"])
 def post():
-    postRequest = request.get_json()
+    postRequest = request.form
     uid = postRequest["uuid"]
     permission = postRequest["permission"]
     byteArray = uidSplitter(uid)
@@ -59,7 +59,7 @@ def post():
     username = response['user']['username']
     status = checkPermission(username, permission)
     print(status)
-    return(jsonify(status))
+    return("Success: " + str(status))
 
 app.run(host="0.0.0.0", port = 8090, ssl_context =  context)
 
